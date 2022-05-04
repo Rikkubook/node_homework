@@ -1,24 +1,24 @@
 const mongoose = require('mongoose');
 
 const postsSchema = new mongoose.Schema({
-  user: {
+  userInfo: {
     type: mongoose.Schema.ObjectId,
     ref: 'user',
-    required: [true, '請輸入您的名字']
+    required: [true, '請輸入您的userId']
   },
   content: {
     type: String,
     required: [true,"內文必填"]
   },
   image: String,
-  likes: {
-    type: Number,
-    default: 0
-  },
+  likes: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'user',
+  }],
   createAt: {
     type: Date,
     default: Date.now,
-    select: false
+    select: true,
   },
 },
 {
