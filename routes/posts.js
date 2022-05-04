@@ -58,14 +58,20 @@ router.post('/postLikes', async (req, res) => {
   try{
     const data = req.body
     if(!data.userInfo || !data.posts ){
-      throw '名稱、喜歡文章、缺一不可'
+      throw '使用者Id、喜歡文章、缺一不可'
     }
-    const like = await Like.findOne({"userInfo": data.userInfo})
-    if(like){
-      like.posts.addToSet(data.posts) //不重複新增
+
+    const user = await Like.findOne({"userInfo": data.userInfo})
+    if(user){
+      if(user.posts.includes(data.posts)){ //為了修改排序
+        const index = like.posts.indexOf(data.posts)
+        console.log(index)
+        user.posts.splice(index, 1) 
+      }
+      user.posts.unshift(data.posts) 
+      user.save()
+      successHandler(res, user)
       // https://mongoosejs.com/docs/api/array.html#mongoosearray_MongooseArray-addToSet
-      like.save()
-      successHandler(res, like)
     }else{
       const newLike = await Like.create({
         userInfo: data.userInfo,
@@ -93,6 +99,7 @@ router.post('/likes', async (req, res) => {
       path: 'posts',
       select: 'name content createAt'
     })
+
     successHandler(res, likes)
   }catch(error){
     errorHandler(res,error,400)
