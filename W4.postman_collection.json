@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "798d1ce3-329e-4cb7-abc8-ef5dceba0b2d",
+		"name": "W4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "查看users全部",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://floating-tundra-36437.herokuapp.com/users",
+					"protocol": "https",
+					"host": [
+						"floating-tundra-36437",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查看posts全部",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://floating-tundra-36437.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"floating-tundra-36437",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增posts一筆",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userInfo\": \"626fea471d31613ecc953f23\",\n    \"content\": \"AAA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://floating-tundra-36437.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"floating-tundra-36437",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除posts全部",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://floating-tundra-36437.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"floating-tundra-36437",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
