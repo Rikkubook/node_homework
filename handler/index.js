@@ -25,7 +25,7 @@ const successHandler = (res, data) => {
 }
 
 const errorHandler = (res, error= null, code=400) => {
-  res.writeHead(404, header)
+  res.writeHead(400, header)
   res.write(JSON.stringify({
     "status": "false",
     "message": error? error.message: errorMsg[code],
