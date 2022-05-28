@@ -27,7 +27,6 @@ process.on('uncaughtException', err => {
 	console.error(err);
 	process.exit(1); //停掉該 process
 });
-// console.log(b)
 
 
 // view engine setup
@@ -93,7 +92,6 @@ app.use(function(err, req, res, next) {
   }
   resErrorProd(err, res)
 });
-
 
 // 未捕捉到的 catch 
 process.on('unhandledRejection', (err, promise) => {
