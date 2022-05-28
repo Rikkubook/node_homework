@@ -1,15 +1,27 @@
 {
 	"info": {
-		"_postman_id": "798d1ce3-329e-4cb7-abc8-ef5dceba0b2d",
-		"name": "W4",
+		"_postman_id": "7399b0d5-fb56-4063-9b59-1e17349e3755",
+		"name": "W5",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "查看users全部",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "https://floating-tundra-36437.herokuapp.com/users",
 					"protocol": "https",
@@ -27,9 +39,21 @@
 		},
 		{
 			"name": "查看posts全部",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "https://floating-tundra-36437.herokuapp.com/posts",
 					"protocol": "https",
@@ -52,7 +76,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userInfo\": \"626fea471d31613ecc953f23\",\n    \"content\": \"AAA\"\n}",
+					"raw": "{\n    \"userInfo\": \"626fea471d31613ecc953f23\",\n    \"content\": \"AAAA\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -98,6 +122,66 @@
 					],
 					"path": [
 						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除posts一筆",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://floating-tundra-36437.herokuapp.com/posts/627f4988721b9bc8557a5227",
+					"protocol": "https",
+					"host": [
+						"floating-tundra-36437",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"627f4988721b9bc8557a5227"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "編輯posts單筆",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\": \"ABC\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://floating-tundra-36437.herokuapp.com/posts/627fc35fb60b52d09ea4f505",
+					"protocol": "https",
+					"host": [
+						"floating-tundra-36437",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"627fc35fb60b52d09ea4f505"
 					]
 				}
 			},
