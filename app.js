@@ -15,8 +15,9 @@ mongoose.connect(DB).then(()=>{
   console.log(error)
 })
 
-var postsRouter = require('./routes/posts'); //管理Router
-var usersRouter = require('./routes/users'); //管理Router
+const uploadRouter = require('./routes/upload');
+const postsRouter = require('./routes/posts'); //管理Router
+const usersRouter = require('./routes/users'); //管理Router
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use(express.urlencoded({ extended: false })); //app.use(bodyParser.urlencode
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // 預定靜態路由 使ejs 可以使用圖片等
 
+app.use('/upload', uploadRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 
