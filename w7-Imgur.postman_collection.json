@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "7399b0d5-fb56-4063-9b59-1e17349e3755",
+		"name": "w7-Imgur",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11835376"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "查看users全部",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku}}/users",
+							"host": [
+								"{{heroku}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcwODM1MywiZXhwIjoxNjU2MzAwMzUzfQ.FgQnxiePRoevLcQjpYT1xKOsfEmjEPXvSjQ9s22zJuk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku}}/users/profile",
+							"host": [
+								"{{heroku}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增 users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Br\",\n    \"email\": \"gggg@gmail.com\",\n    \"password\": \"qwe1112233\",\n    \"confirmPassword\": \"qwe1112233\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku}}/users/sign_up",
+							"host": [
+								"{{heroku}}"
+							],
+							"path": [
+								"users",
+								"sign_up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登入 users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"rikku111@gmail.com\",\n    \"password\": \"12345asd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku}}/users/sign_in",
+							"host": [
+								"{{heroku}}"
+							],
+							"path": [
+								"users",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新 user 密碼",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcwODM1MywiZXhwIjoxNjU2MzAwMzUzfQ.FgQnxiePRoevLcQjpYT1xKOsfEmjEPXvSjQ9s22zJuk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newPassword\": \"qweasd123\",\n    \"confirmPassword\": \"qweasd123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku}}/users/updatePassword",
+							"host": [
+								"{{heroku}}"
+							],
+							"path": [
+								"users",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新 profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcwODM1MywiZXhwIjoxNjU2MzAwMzUzfQ.FgQnxiePRoevLcQjpYT1xKOsfEmjEPXvSjQ9s22zJuk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"rikku12@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku}}/users/profile",
+							"host": [
+								"{{heroku}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "查看posts全部",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku}}/posts",
+							"host": [
+								"{{heroku}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增posts一筆",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"CCC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku}}/posts",
+							"host": [
+								"{{heroku}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增img圖片",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": "/Users/rikku/Desktop/01.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{heroku}}/upload",
+							"host": [
+								"{{heroku}}"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
