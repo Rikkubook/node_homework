@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const postsSchema = new mongoose.Schema({
   userInfo: {
     type: mongoose.Schema.ObjectId,
-    ref: 'user',
+    ref: 'User',
     required: [true, '請輸入您的userId']
   },
   content: {
@@ -13,7 +13,7 @@ const postsSchema = new mongoose.Schema({
   image: String,
   likes: [{
     type: mongoose.Schema.ObjectId,
-    ref: 'user',
+    ref: 'User',
   }],
   createAt: {
     type: Date,
@@ -23,8 +23,16 @@ const postsSchema = new mongoose.Schema({
 },
 {
   versionKey: false, // __v: 引藏
+  toJSON: {virtuals: true}, // 為了將偷掛上去的轉格式
+  toObject: {virtuals: true}, // 為了將偷掛上去的轉格式
 });
 
-const Post = mongoose.model('post', postsSchema);
+postsSchema.virtual('comments',{ // 偷掛上的名稱
+  ref:'Comment',
+  foreignField: 'post', //post欄位內貼文id
+  localField: '_id' // 引用跟這個貼文id一樣的留言
+})
+
+const Post = mongoose.model('Post', postsSchema);
 
 module.exports = Post;

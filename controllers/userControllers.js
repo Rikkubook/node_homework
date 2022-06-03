@@ -1,4 +1,4 @@
-const User = require('../models/userModel')
+const User = require('../models/usersModel')
 const appError = require("../service/appError");
 const handleErrorAsync = require("../service/handleErrorAsync");
 const bcrypt = require('bcryptjs');
@@ -12,15 +12,23 @@ const userControl ={
       res.status(200).json({status:"success", data:users})
     }
   ),
-  getUser:handleErrorAsync(
+  getUserProfile:handleErrorAsync(
+    async(req, res, next) =>{
+      res.status(200).json({
+        status: 'success',
+        user: req.user
+      });
+    }
+  ),
+  postUserSignIn:handleErrorAsync(
     async (req, res, next) => {
-      const data =req.body
-      if(!data.email || !data.password){
+      const body =req.body
+      if(!body.email || !body.password){
         return next(appError(400,"帳號密碼不為空",next))
       }
   
-      const user = await User.findOne({ email:data.email }).select('+password'); // 為了要把預設不顯示的取出，添加+
-      const auth =await bcrypt.compare(data.password, user.password); //確認密碼與加密密碼
+      const user = await User.findOne({ email:body.email }).select('+password'); // 為了要把預設不顯示的取出，添加+
+      const auth =await bcrypt.compare(body.password, user.password); //確認密碼與加密密碼
   
       if(!auth){
         return next(appError(400,"你的密碼不正確",next))
@@ -28,7 +36,7 @@ const userControl ={
       generateSendJWT(user,201,res);
     }
   ),
-  postUser:handleErrorAsync(
+  postUserSignUp:handleErrorAsync(
     async(req, res, next) =>{
       const body = req.body;
       // 內容不可為空(自訂除錯)
@@ -63,14 +71,6 @@ const userControl ={
       generateSendJWT(newUser,201,res);
     }
   ),
-  getUserProfile:handleErrorAsync(
-    async(req, res, next) =>{
-      res.status(200).json({
-        status: 'success',
-        user: req.user
-      });
-    }
-  ),
   patchUserPassword:handleErrorAsync(
     async(req,res,next)=>{
       const body = req.body;
@@ -82,22 +82,26 @@ const userControl ={
       const user = await User.findByIdAndUpdate(req.user.id,{
         password:newPassword
       });
+      if(user == null){ // patch 可能會找到空的回傳null
+        return next(appError(400,"查無此id",next))
+      }
+
       generateSendJWT(user,200,res)
     }
   ),
   patchUserProfile: handleErrorAsync(
     async (req, res, next) => {
-      const data = req.body
-      const newArray = Object.keys(data)
+      const body = req.body
+      const newArray = Object.keys(body)
   
-      if(newArray.includes('name') && !data.name){
+      if(newArray.includes('name') && !body.name){
         return next(appError(400,"名字不為空",next))
-      }else if(newArray.includes('email') && !data.email){
+      }else if(newArray.includes('email') && !body.email){
         return next(appError(400,"Email不為空",next))
       }
 
-      const resultUser = await User.findByIdAndUpdate(req.user.id,data);
-      if(resultUser == null){
+      const resultUser = await User.findByIdAndUpdate(req.user.id,body);
+      if(resultUser == null){ // patch 可能會找到空的回傳null
         return next(appError(400,"查無此id",next))
       }
 

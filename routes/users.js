@@ -6,18 +6,19 @@ const { isAuth } = require('../service/auth')
 /* GET users listing. */
 router.get('/', userControl.getAllUsers);
 
-//登入會員
-router.post('/sign_in', userControl.getUser);
-
-//註冊會員
-router.post('/sign_up', userControl.postUser);
-
 //取得個人資料
 router.get('/profile',isAuth, userControl.getUserProfile);
+
+//登入會員
+router.post('/sign_in', userControl.postUserSignIn);
+
+//註冊會員
+router.post('/sign_up', userControl.postUserSignUp);
 
 //變更密碼
 router.patch('/updatePassword',isAuth, userControl.patchUserPassword)
 
+//變更個人資訊
 router.patch('/profile',isAuth, userControl.patchUserProfile);
 
 module.exports = router;

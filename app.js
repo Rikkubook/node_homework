@@ -58,6 +58,7 @@ app.use(function(req,res,next){
 const resErrorProd = (err, res) => {
   if (err.isOperational) { //可預期
     res.status(err.statusCode).json({
+      status: err.statusCode,
       message: err.message
     });
   } else {
@@ -73,6 +74,7 @@ const resErrorProd = (err, res) => {
 // 開發環境錯誤
 const resErrorDev = (err, res) => {
   res.status(err.statusCode).json({
+    status: err.statusCode,
     message: err.message,
     error: err,
     stack: err.stack

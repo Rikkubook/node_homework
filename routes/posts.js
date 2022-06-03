@@ -2,12 +2,20 @@ const express = require('express');
 const router = express.Router();
 const postControl = require('../controllers/postControllers');
 const { isAuth } = require('../service/auth')
-
 // 查看所有貼文
 router.get('/', isAuth, postControl.getPosts);
 
+// 取得某人的所有貼文列表
+router.get('/:id', postControl.getPost)
+
+// 取得某人的所有貼文列表
+router.get('/user/:id', postControl.getUserComment )
+
 // 新增貼文
 router.post('/',isAuth, postControl.postPost);
+
+// 留言
+router.post('/:id/comment',isAuth, postControl.postComment)
 
 module.exports = router;
 
