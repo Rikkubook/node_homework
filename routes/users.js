@@ -24,7 +24,7 @@ router.post('/:id/follow',isAuth, userControl.postFollow)
 // 變更密碼
 router.patch('/updatePassword',isAuth, userControl.patchUserPassword)
 
-// 變更個人資訊
+//變更貼文
 router.patch('/profile',isAuth, userControl.patchUserProfile);
 
 // 取消追蹤

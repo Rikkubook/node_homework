@@ -15,6 +15,7 @@ const postsSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'User',
   }],
+  comments: [],
   createAt: {
     type: Date,
     default: Date.now,
@@ -23,16 +24,16 @@ const postsSchema = new mongoose.Schema({
 },
 {
   versionKey: false, // __v: 引藏
-  toJSON: {virtuals: true}, // 為了將偷掛上去的轉格式
-  toObject: {virtuals: true}, // 為了將偷掛上去的轉格式
+  toJSON: {virtuals: true},
+  toObject: {virtuals: true}
 });
 
-postsSchema.virtual('comments',{ // 偷掛上的名稱
-  ref:'Comment',
-  foreignField: 'post', //post欄位內貼文id
-  localField: '_id' // 引用跟這個貼文id一樣的留言
+postsSchema.virtual('comments',{
+  ref:'comment',
+  foreignField: 'post',
+  localField: '_id'
 })
 
-const Post = mongoose.model('Post', postsSchema);
+const Post = mongoose.model('post', postsSchema);
 
 module.exports = Post;

@@ -20,6 +20,17 @@ const likesSchema = new mongoose.Schema({
   versionKey: false, // __v: 引藏
 });
 
-const Like = mongoose.model('Like', likesSchema);
+likesSchema.pre(/^find/, (next) => {
+  this.populate({
+    path: 'post',
+    select: 'createAt'
+  }).populate({
+    path: 'userInfo',
+    select: 'name'
+  })
+  next();
+})
+
+const Like = mongoose.model('like', likesSchema);
 
 module.exports = Like;
