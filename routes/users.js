@@ -6,13 +6,16 @@ const { isAuth } = require('../service/auth')
 /* GET users listing. */
 router.get('/', userControl.getAllUsers);
 
-//取得個人資料
+// 取得個人資料
 router.get('/profile',isAuth, userControl.getUserProfile);
 
-//登入會員
+// 取得個人追蹤者
+router.get('/following',isAuth, userControl.getUserFollowing);
+
+// 登入會員
 router.post('/sign_in', userControl.postUserSignIn);
 
-//註冊會員
+// 註冊會員
 router.post('/sign_up', userControl.postUserSignUp);
 
 // 新增追蹤

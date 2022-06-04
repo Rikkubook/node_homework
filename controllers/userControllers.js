@@ -17,6 +17,11 @@ const userControl ={
       res.status(200).json({status: "success", data: req.user})
     }
   ),
+  getUserFollowing:handleErrorAsync(
+    async(req, res) =>{
+      res.status(200).json({status: "success", following: req.user.following})
+    }
+  ),
   postUserSignIn:handleErrorAsync(
     async (req, res, next) => {
       const body =req.body
