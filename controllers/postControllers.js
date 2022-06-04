@@ -26,7 +26,7 @@ const postControl ={
         select: 'comment user'
       });
       res.status(200).json({
-        status: 'success',
+        status: "success",
         data: searchPost
       });
     }
@@ -40,7 +40,7 @@ const postControl ={
       });
     
       res.status(200).json({
-          status: 'success',
+          status: "success",
           results: posts.length,
           posts
       });

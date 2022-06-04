@@ -22,12 +22,38 @@ const userSchema = new mongoose.Schema({
     minlength: 8,
     select: false
   },
+  followers: [
+    {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User' 
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ],
+  following: [
+    {
+      user: { 
+        type: mongoose.Schema.ObjectId, 
+        ref: 'User'
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ],
+  photo: String,
   createdAt: {
     type: Date,
     default: Date.now,
     select: false
-  },
-  photo: String,
+  }
+},{
+  versionKey: false, // __v: 引藏
 });
 
 const User = mongoose.model('User', userSchema);

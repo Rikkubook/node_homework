@@ -15,11 +15,17 @@ router.post('/sign_in', userControl.postUserSignIn);
 //註冊會員
 router.post('/sign_up', userControl.postUserSignUp);
 
-//變更密碼
+// 新增追蹤
+router.post('/:id/follow',isAuth, userControl.postFollow)
+
+// 變更密碼
 router.patch('/updatePassword',isAuth, userControl.patchUserPassword)
 
-//變更個人資訊
+// 變更個人資訊
 router.patch('/profile',isAuth, userControl.patchUserProfile);
+
+// 取消追蹤
+router.delete('/:id/unfollow',isAuth,userControl.deleteFollow)
 
 module.exports = router;
 
