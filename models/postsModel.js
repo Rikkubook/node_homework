@@ -15,7 +15,6 @@ const postsSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'User',
   }],
-  comments: [],
   createAt: {
     type: Date,
     default: Date.now,
@@ -28,12 +27,12 @@ const postsSchema = new mongoose.Schema({
   toObject: {virtuals: true}
 });
 
-postsSchema.virtual('comments',{
-  ref:'comment',
-  foreignField: 'post',
-  localField: '_id'
+postsSchema.virtual('comments',{ // 偷掛上的名稱
+  ref:'Comment',
+  foreignField: 'post', //post欄位內貼文id
+  localField: '_id' // 引用跟這個貼文id一樣的留言
 })
 
-const Post = mongoose.model('post', postsSchema);
+const Post = mongoose.model('Post', postsSchema);
 
 module.exports = Post;

@@ -85,14 +85,15 @@ router.post(
    */
   '/',isAuth, postControl.postPost);
 
-router.post('/getLikeList',isAuth, likeControl.getLikeList);
-
-router.post('/:postID/like',isAuth, likeControl.like);
-
-router.post('/:postID/unlike',isAuth, likeControl.unlike);
-
 // 留言
 router.post('/:id/comment',isAuth, postControl.postComment)
+
+// 新增喜歡
+router.post('/:postID/like',isAuth, likeControl.postLike);
+
+// 刪除喜歡
+router.delete('/:postID/unlike',isAuth, likeControl.deleteLike);
+
 
 module.exports = router;
 

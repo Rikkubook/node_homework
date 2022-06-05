@@ -18,8 +18,8 @@ mongoose.connect(DB).then(()=>{
 const uploadRouter = require('./routes/upload');
 const postsRouter = require('./routes/posts'); //管理Router
 const usersRouter = require('./routes/users'); //管理Router
-const swaggerUI = require('swagger-ui-express');
-const swaggerFile = require('./swagger-output.json');
+// const swaggerUI = require('swagger-ui-express');
+// const swaggerFile = require('./swagger-output.json');
 
 var app = express();
 
@@ -46,7 +46,7 @@ app.use(express.static(path.join(__dirname, 'public'))); // 預定靜態路由 �
 app.use('/upload', uploadRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
-app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
+// app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 // 404
 app.use(function(req,res,next){
   res.status(404).json({

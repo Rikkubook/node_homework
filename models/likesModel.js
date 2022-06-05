@@ -6,10 +6,11 @@ const likesSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, '請輸入您的userId']
   },
-  posts: [{
+  posts: {
     type: mongoose.Schema.ObjectId,
     ref: 'Post',
-  }],
+    require: [true, '需要文章資料']
+  },
   createAt: {
     type: Date,
     default: Date.now,
@@ -20,9 +21,9 @@ const likesSchema = new mongoose.Schema({
   versionKey: false, // __v: 引藏
 });
 
-likesSchema.pre(/^find/, (next) => {
+likesSchema.pre(/^find/, function (next) {
   this.populate({
-    path: 'post',
+    path: 'posts',
     select: 'createAt'
   }).populate({
     path: 'userInfo',
@@ -31,6 +32,6 @@ likesSchema.pre(/^find/, (next) => {
   next();
 })
 
-const Like = mongoose.model('like', likesSchema);
+const Like = mongoose.model('Like', likesSchema);
 
 module.exports = Like;

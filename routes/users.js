@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userControl = require('../controllers/userControllers');
+const likeControl = require('../controllers/likeControllers');
+
 const { isAuth } = require('../service/auth')
 
 /* GET users listing. */
@@ -11,6 +13,9 @@ router.get('/profile',isAuth, userControl.getUserProfile);
 
 // 取得個人追蹤者
 router.get('/following',isAuth, userControl.getUserFollowing);
+
+// 取得個人喜愛貼文
+router.get('/getLikeList',isAuth, likeControl.getLikeList);
 
 // 登入會員
 router.post('/sign_in', userControl.postUserSignIn);
@@ -24,7 +29,7 @@ router.post('/:id/follow',isAuth, userControl.postFollow)
 // 變更密碼
 router.patch('/updatePassword',isAuth, userControl.patchUserPassword)
 
-//變更貼文
+// 變更貼文
 router.patch('/profile',isAuth, userControl.patchUserProfile);
 
 // 取消追蹤
