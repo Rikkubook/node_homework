@@ -29,13 +29,22 @@
 ## API
 * posts
   * getPosts
+  * getPost
+  * getUserComment
   * postPost
+  * postComment
+  * postLike
+  * deleteLike
 * users
   * getAllUsers
-  * getUser
-  * postUser
   * getUserProfile
+  * getUserFollowing
+  * getLikeList
+  * postUserSignIn
+  * postUserSignUp
+  * postFollow
   * patchUserPassword
   * patchUserProfile
+  * deleteFollow
 * upload
   * postUpload
