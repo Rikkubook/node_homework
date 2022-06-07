@@ -1,0 +1,631 @@
+{
+	"info": {
+		"_postman_id": "7399b0d5-fb56-4063-9b59-1e17349e3755",
+		"name": "w8-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11835376"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "查看users全部",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看 某人 profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcwODM1MywiZXhwIjoxNjU2MzAwMzUzfQ.FgQnxiePRoevLcQjpYT1xKOsfEmjEPXvSjQ9s22zJuk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看 某人 follow",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcwODM1MywiZXhwIjoxNjU2MzAwMzUzfQ.FgQnxiePRoevLcQjpYT1xKOsfEmjEPXvSjQ9s22zJuk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/following",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"following"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查詢 某人 like",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/getLikeList",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"getLikeList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增 users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"May\",\n    \"email\": \"may@gmail.com\",\n    \"password\": \"qwe1112233\",\n    \"confirmPassword\": \"qwe1112233\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/sign_up",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"sign_up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登入 users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"may@gmail.com\",\n    \"password\": \"qwe1112233\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/sign_in",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增 follow",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/626fea471d31613ecc953f23/follow",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"626fea471d31613ecc953f23",
+								"follow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新 user 密碼",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcwODM1MywiZXhwIjoxNjU2MzAwMzUzfQ.FgQnxiePRoevLcQjpYT1xKOsfEmjEPXvSjQ9s22zJuk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newPassword\": \"qweasd122\",\n    \"confirmPassword\": \"qweasd122\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/updatePassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新 profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcwODM1MywiZXhwIjoxNjU2MzAwMzUzfQ.FgQnxiePRoevLcQjpYT1xKOsfEmjEPXvSjQ9s22zJuk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"rikku123@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取消 unfollow",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/626fea471d31613ecc953f23/unfollow",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"626fea471d31613ecc953f23",
+								"unfollow"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "查看posts全部",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看 某則 post",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts/62923b0f6bf9f4a5ac1450cd",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"62923b0f6bf9f4a5ac1450cd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看user 的 posts全部",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts/user/6291949cbea952d620161823",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"user",
+								"6291949cbea952d620161823"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增posts一筆",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"測試3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增comments一筆",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts/62962ecdaa0433bcbdd3c747/comment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"62962ecdaa0433bcbdd3c747",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增 like 一筆",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts/62923b0f6bf9f4a5ac1450cd/like",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"62923b0f6bf9f4a5ac1450cd",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取消 like 一筆",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts/62923b0f6bf9f4a5ac1450cd/unlike",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"62923b0f6bf9f4a5ac1450cd",
+								"unlike"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "upload",
+			"item": [
+				{
+					"name": "新增img圖片",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTE5NDljYmVhOTUyZDYyMDE2MTgyMyIsImlhdCI6MTY1MzcxNzMzMCwiZXhwIjoxNjU2MzA5MzMwfQ.w3jzovnPd1hmkzMtYHXfHkemcUr8oxY4Mqk4o3WV28U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": "/Users/rikku/Desktop/01.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/upload",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
