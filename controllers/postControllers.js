@@ -1,10 +1,9 @@
 const Post = require('../models/postsModel')
 const Comment = require('../models/commentsModel');
 const appError = require("../service/appError");
-const handleErrorAsync = require("../service/handleErrorAsync");
 
 const postControl ={
-  getPosts:handleErrorAsync(
+  getPosts:
     async (req, res) => {
       const timeSort = req.query.timeSort == 'asc'? 1:-1
       const search = req.query.search? {"content": new RegExp(req.query.search)} : {};
@@ -16,9 +15,8 @@ const postControl ={
         select: 'comment user'
       }).sort({'createAt': timeSort})
       res.status(200).json({status:"success", data:posts})
-    }
-  ),
-  getPost:handleErrorAsync(
+    },
+  getPost:
     async(req, res) =>  {
       const post = req.params.id;
       const searchPost = await Post.find({_id: post}).populate({
@@ -29,9 +27,8 @@ const postControl ={
         status: "success",
         data: searchPost
       });
-    }
-  ),
-  getUserComment:handleErrorAsync(
+    },
+  getUserComment:
     async(req, res) =>  {
       const user = req.params.id;
       const posts = await Post.find({userInfo: user}).populate({
@@ -44,9 +41,8 @@ const postControl ={
           results: posts.length,
           posts
       });
-    }
-  ),
-  postPost:handleErrorAsync(
+    },
+  postPost:
     async (req, res, next) => {
       const body = req.body
       if(!body.content ){
@@ -61,9 +57,8 @@ const postControl ={
         createdAt: body.createdAt,
       })
       res.status(201).json({status:"success", data:newPost})
-    }
-  ),
-  postComment:handleErrorAsync(
+    },
+  postComment:
     async(req, res, next) =>  {
       const body = req.body;
       if(!body.comment ){
@@ -78,8 +73,22 @@ const postControl ={
       res.status(201).json({status:"success", data:{
         comments: newComment
       }})
+    },
+  deletePost:
+    async (req, res) => {
+      await Post.deleteMany({});
+      res.status(200).json({status:"success", data:[]})
+    },
+  deleteOne:
+    async (req, res, next) => {
+      const id = req.params.id;
+      const resultPost = await Post.findByIdAndDelete(id);
+      if(resultPost == null){
+        return next(appError(400,"查無此id",next))
+      }
+      const posts =await Post.find({});
+      res.status(200).json({status:"success", data:posts})
     }
-  )
 }
 
 module.exports = postControl;
