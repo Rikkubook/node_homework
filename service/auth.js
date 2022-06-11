@@ -22,7 +22,7 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
   const decoded = await new Promise((resolve,reject)=>{
     jwt.verify(token,process.env.JWT_SECRET,(err,payload)=>{ // 對方token , 我的加密
       if(err){
-        reject(err) // 丟去handleErrorAsync
+        reject(next(appError(401, '驗證 token 發生問題或不一致', next))) // 丟去handleErrorAsync
       }else{
         resolve(payload)
       }

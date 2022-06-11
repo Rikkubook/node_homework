@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, '請輸入您的名字']
+    required: [true, '請輸入您的名字'],
+    minlength: 2,
   },
   email: {
     type: String,

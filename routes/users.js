@@ -2,38 +2,39 @@ const express = require('express');
 const router = express.Router();
 const userControl = require('../controllers/userControllers');
 const likeControl = require('../controllers/likeControllers');
+const handleErrorAsync = require("../service/handleErrorAsync")
 
 const { isAuth } = require('../service/auth')
 
 /* GET users listing. */
-router.get('/', userControl.getAllUsers);
+router.get('/', handleErrorAsync(userControl.getAllUsers));
 
 // 取得個人資料
-router.get('/profile',isAuth, userControl.getUserProfile);
+router.get('/profile',isAuth, handleErrorAsync(userControl.getUserProfile));
 
 // 取得個人追蹤者
-router.get('/following',isAuth, userControl.getUserFollowing);
+router.get('/following',isAuth, handleErrorAsync(userControl.getUserFollowing));
 
 // 取得個人喜愛貼文
-router.get('/getLikeList',isAuth, likeControl.getLikeList);
+router.get('/getLikeList',isAuth, handleErrorAsync(likeControl.getLikeList));
 
 // 登入會員
-router.post('/sign_in', userControl.postUserSignIn);
+router.post('/sign_in', handleErrorAsync(userControl.postUserSignIn));
 
 // 註冊會員
-router.post('/sign_up', userControl.postUserSignUp);
+router.post('/sign_up', handleErrorAsync(userControl.postUserSignUp));
 
 // 新增追蹤
-router.post('/:id/follow',isAuth, userControl.postFollow)
+router.post('/:id/follow',isAuth, handleErrorAsync(userControl.postFollow));
 
 // 變更密碼
-router.patch('/updatePassword',isAuth, userControl.patchUserPassword)
+router.patch('/updatePassword',isAuth, handleErrorAsync(userControl.patchUserPassword));
 
 // 變更貼文
-router.patch('/profile',isAuth, userControl.patchUserProfile);
+router.patch('/profile',isAuth, handleErrorAsync(userControl.patchUserProfile));
 
 // 取消追蹤
-router.delete('/:id/unfollow',isAuth,userControl.deleteFollow)
+router.delete('/:id/unfollow',isAuth,handleErrorAsync(userControl.deleteFollow));
 
 module.exports = router;
 

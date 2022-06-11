@@ -1,10 +1,9 @@
 const appError = require("../service/appError");
-const handleErrorAsync = require("../service/handleErrorAsync");
 const sizeOf = require('image-size'); // 圖片大小
 const { ImgurClient } = require('imgur'); // IMGUR
 
 const uploadControl ={
-  postUpload:  handleErrorAsync(
+  postUpload:  
     async (req, res, next)=> {
       if(!req.files.length) {
         return next(appError(400,"未上傳檔案",next));
@@ -31,7 +30,6 @@ const uploadControl ={
           imgUrl: response.data.link
       })
     }
-  )
 }
 
 module.exports = uploadControl;
