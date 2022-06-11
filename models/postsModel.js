@@ -23,7 +23,7 @@ const postsSchema = new mongoose.Schema({
 },
 {
   versionKey: false, // __v: 引藏
-  toJSON: {virtuals: true},
+  toJSON: {virtuals: true}, // 會產生一個id
   toObject: {virtuals: true}
 });
 

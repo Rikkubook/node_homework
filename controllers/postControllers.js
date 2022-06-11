@@ -1,4 +1,5 @@
-const Post = require('../models/postsModel')
+const Post = require('../models/postsModel');
+const Like = require('../models/likesModel');
 const Comment = require('../models/commentsModel');
 const appError = require("../service/appError");
 
@@ -49,7 +50,7 @@ const postControl ={
         return next(appError(400,"你沒有輸入內容",next))
       }
       const newPost = await Post.create({
-        userInfo: req.user.id,
+        userInfo: req.user,
         image: body.image,
         content: body.content,
         likes: body.likes,
@@ -66,7 +67,7 @@ const postControl ={
       }
       const newComment = await Comment.create({
         post: req.params.id,
-        user: req.user.id,
+        user: req.user,
         comment: body.comment
       });
       
@@ -77,6 +78,7 @@ const postControl ={
   deletePost:
     async (req, res) => {
       await Post.deleteMany({});
+      await Like.deleteMany({})
       res.status(200).json({status:"success", data:[]})
     },
   deleteOne:
@@ -86,6 +88,8 @@ const postControl ={
       if(resultPost == null){
         return next(appError(400,"查無此id",next))
       }
+      const resultLike = await Like.deleteMany({posts: id})
+      console.log(resultLike)
       const posts =await Post.find({});
       res.status(200).json({status:"success", data:posts})
     }

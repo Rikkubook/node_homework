@@ -29,7 +29,8 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
     })
   })
   const currentUser = await User.findById(decoded.id); //JWT 寫入
-  req.user = currentUser; // 可以自訂後帶入下一個
+  req.user = currentUser.id; // 可以自訂後帶入下一個
+  console.log(req.user)
   next();
 });
 

@@ -12,11 +12,16 @@ const userControl ={
     },
   getUserProfile:
     async(req, res) =>{
-      res.status(200).json({status: "success", data: req.user})
+      const user = await User.findOne({_id: req.user});
+      res.status(200).json({status: "success", data: user})
     },
   getUserFollowing:
     async(req, res) =>{
-      res.status(200).json({status: "success", following: req.user.following})
+      const user = await User.findOne({_id: req.user}).populate({
+        path: 'following',
+        select: 'user'
+      })
+      res.status(200).json({status: "success", following: user})
     },
   postUserSignIn:
     async (req, res, next) => {
@@ -94,7 +99,7 @@ const userControl ={
       let reg =/^([a-zA-Z]+\d+|\d+[a-zA-Z]+)[a-zA-Z0-9]*$/
       if(!validator.isLength(body.newPassword,{min:8})){
         return next(appError(400 ,"密碼不可小於 8 碼",next))
-      }else if(!body.password.match(reg)){
+      }else if(!body.newPassword.match(reg)){
         return next(appError(400 ,"密碼需英數混合",next))
       }
       if(body.newPassword!==body.confirmPassword){
@@ -103,7 +108,7 @@ const userControl ={
       const newPassword = await bcrypt.hash(body.newPassword,12)
 
       const opts = { runValidators: true } //更新會再跑一次驗證規則
-      const user = await User.findByIdAndUpdate(req.user.id,
+      const user = await User.findByIdAndUpdate(req.user,
         { password:newPassword },
         opts);
       if(user == null){ // patch 可能會找到空的回傳null
@@ -113,6 +118,9 @@ const userControl ={
       generateSendJWT(user,200,res)
     },
   patchUserProfile:
+    /**
+     * 將要修改的在丟進去 update中 不要整個 body全塞入
+     */
     async (req, res, next) => {
       const body = req.body
 
@@ -124,24 +132,24 @@ const userControl ={
         return next(appError(400 ,"Email 格式不正確",next))
       }
       const opts = { runValidators: true } //更新會再跑一次驗證規則
-      const resultUser = await User.findByIdAndUpdate(req.user.id,
+      const resultUser = await User.findByIdAndUpdate(req.user,
         {name: body.name, email: body.email},opts
       )
       if(resultUser == null){ // patch 可能會找到空的回傳null
         return next(appError(400 ,"查無此id",next))
       }
 
-      const newData =await User.findById(req.user.id).select('+email') // 可能改email所以顯示
+      const newData =await User.findById(req.user).select('+email') // 可能改email所以顯示
       res.status(200).json({status:"success", data:newData})
     },
   postFollow:
     async(req, res, next) =>{
-      if (req.params.id === req.user.id) {
+      if (req.params.id === req.user) {
         return next(appError(401 ,'您無法追蹤自己',next))
       }
       await User.updateOne( // 我追蹤他 所以我的following要更新
         {
-          _id: req.user.id,
+          _id: req.user,
           'following.user': { $ne: req.params.id } //先看是否有重複
         },
         {
@@ -151,22 +159,22 @@ const userControl ={
       await User.updateOne( // 我追蹤他 所以對方的follower也要更新
         {
           _id: req.params.id,
-          'followers.user': { $ne: req.user.id }
+          'followers.user': { $ne: req.user }
         },
         {
-          $addToSet: { followers: { user: req.user.id } }
+          $addToSet: { followers: { user: req.user } }
         }
       )
       res.status(200).json({status: "success", message: "您已成功追蹤！"})
     },
   deleteFollow:
     async(req, res, next) =>{
-      if (req.params.id === req.user.id) {
+      if (req.params.id === req.user) {
         return next(appError(401 ,'您無法取消追蹤自己',next));
       }
       await User.updateOne(
         {
-          _id: req.user.id
+          _id: req.user
         },
         {
           $pull: { following: { user: req.params.id } } //取消
@@ -177,7 +185,7 @@ const userControl ={
           _id: req.params.id
         },
         {
-          $pull: { followers: { user: req.user.id } }
+          $pull: { followers: { user: req.user } }
         }
       )
       res.status(200).json({status: "success", message: "您已成功取消追蹤！"})
