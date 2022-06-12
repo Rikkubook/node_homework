@@ -23,15 +23,6 @@ const usersRouter = require('./routes/users'); //管理Router
 
 var app = express();
 
-// 程式出現重大錯誤時 (不能上正式機 被看到會反破解知道用了哪些套件)
-process.on('uncaughtException', err => {
-  // 記錄錯誤下來，等到服務都處理完後，停掉該 process
-	console.error('Uncaughted Exception！')
-	console.error(err);
-	process.exit(1); //停掉該 process
-});
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs'); //載入ejs
@@ -42,7 +33,6 @@ app.use(express.json());  //app.use(bodyParser.json()); //組裝傳入的資料
 app.use(express.urlencoded({ extended: false })); //app.use(bodyParser.urlencoded({ extended: false }));  // ???
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // 預定靜態路由 使ejs 可以使用圖片等
-
 app.use('/upload', uploadRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
@@ -58,6 +48,7 @@ app.use(function(req,res,next){
 // express 錯誤處理
 // 正式環境錯誤
 const resErrorProd = (err, res) => {
+  console.log("resErrorProd")
   if (err.isOperational) { //可預期
     res.status(err.statusCode).json({
       status: err.statusCode,
@@ -84,9 +75,14 @@ const resErrorDev = (err, res) => {
 };
 // express 錯誤處理 //next
 app.use(function(err, req, res, next) {
+  if (err instanceof SyntaxError && 'body' in err) {
+    err.message = err.message
+    err.isOperational = true;
+    return resErrorProd(err, res)
+    // return res.status(400).send({ status: 404, message: err.message });
+  }
   // dev
   err.statusCode = err.statusCode || 500;
-
   if (process.env.NODE_ENV === 'dev') {
     return resErrorDev(err, res);
   } 
@@ -97,6 +93,13 @@ app.use(function(err, req, res, next) {
     return resErrorProd(err, res)
   }
   resErrorProd(err, res)
+});
+
+// 程式出現重大錯誤時 (不能上正式機 被看到會反破解知道用了哪些套件)
+process.on('uncaughtException', err => {
+  // 記錄錯誤下來，等到服務都處理完後，停掉該 process
+	console.error(err);
+	process.exit(1); //停掉該 process
 });
 
 // 未捕捉到的 catch 
