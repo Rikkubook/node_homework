@@ -3,8 +3,9 @@ const router = express.Router();
 const userControl = require('../controllers/userControllers');
 const likeControl = require('../controllers/likeControllers');
 const handleErrorAsync = require("../service/handleErrorAsync")
-
 const { isAuth } = require('../service/auth')
+
+const passport =require('passport')
 
 /* GET users listing. */
 router.get('/', handleErrorAsync(userControl.getAllUsers));
@@ -36,6 +37,19 @@ router.patch('/profile',isAuth, handleErrorAsync(userControl.patchUserProfile));
 // 取消追蹤
 router.delete('/:id/unfollow',isAuth,handleErrorAsync(userControl.deleteFollow));
 
+// google 依賴 passport-google middleware
+router.get('/google',passport.authenticate('google',{
+  scope: ['email','profile'] // 需要資訊
+}))
+
+router.get('/google/callback',passport.authenticate('google',{
+  session: false //前後端分離因次沒裝express-session
+}),(req,res)=>{ //給前端資訊
+  res.send({
+    status: true,
+    data: req.user
+  })
+})
 module.exports = router;
 
 
