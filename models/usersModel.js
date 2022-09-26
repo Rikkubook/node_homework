@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema({
       }
     }
   ],
+  googleId: String,
   photo: String,
   createdAt: {
     type: Date,

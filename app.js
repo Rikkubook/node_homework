@@ -1,19 +1,12 @@
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser'); //接到 cookie
 var logger = require('morgan'); // 日誌
-const mongoose = require('mongoose');
-const dotenv = require("dotenv");
+const dotenv = require("dotenv"); // env
 dotenv.config({path:"./config.env"});
 
-const DB =  process.env.DATABASE_CLOUD.replace('<password>',process.env.DATABASE_PASSWORD)
-
-mongoose.connect(DB).then(()=>{
-  console.log('資料庫連線成功')
-}).catch((error)=>{
-  console.log(error)
-})
+require('./connections/mongoose');
+require('./connections/passport')
 
 const uploadRouter = require('./routes/upload');
 const postsRouter = require('./routes/posts'); //管理Router

@@ -52,7 +52,19 @@ const generateSendJWT = (user,statusCode,res)=>{
   });
 }
 
+const generateUrlJWT = (user,res)=>{
+  // 產生 JWT token
+  const token = jwt.sign( //先簽名
+    {id:user._id}, //body 顯示要顯示的"非重要"資訊
+    process.env.JWT_SECRET, // 混淆碼
+    {expiresIn: process.env.JWT_EXPIRES_DAY} //有效日
+  );
+  // 為了重新導向前端拿取存到storage
+  res.redirect(`/users/callback?token=${token}&name=${user.name}`) 
+}
+
 module.exports = {
   isAuth,
-  generateSendJWT
+  generateSendJWT,
+  generateUrlJWT
 }
