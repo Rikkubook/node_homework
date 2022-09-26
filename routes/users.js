@@ -3,7 +3,7 @@ const router = express.Router();
 const userControl = require('../controllers/userControllers');
 const likeControl = require('../controllers/likeControllers');
 const handleErrorAsync = require("../service/handleErrorAsync")
-const { isAuth } = require('../service/auth')
+const { isAuth, generateUrlJWT } = require('../service/auth')
 
 const passport =require('passport')
 
@@ -45,10 +45,11 @@ router.get('/google',passport.authenticate('google',{
 router.get('/google/callback',passport.authenticate('google',{
   session: false //前後端分離因次沒裝express-session
 }),(req,res)=>{ //給前端資訊
-  res.send({
-    status: true,
-    data: req.user
-  })
+  // res.send({
+  //   status: true,
+  //   data: req.user
+  // })
+  generateUrlJWT(req.user, res)
 })
 module.exports = router;
 

@@ -2,6 +2,7 @@ const passport =require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const User =require('../models/usersModel');
 const bcrypt = require('bcryptjs')
+
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID, // 改成env
   clientSecret: process.env.GOOGLE_CLIENT_SECRET, // 改成env

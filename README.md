@@ -46,5 +46,6 @@
   * patchUserPassword
   * patchUserProfile
   * deleteFollow
+  * getGoogleLogin
 * upload
   * postUpload
