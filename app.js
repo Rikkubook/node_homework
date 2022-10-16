@@ -4,13 +4,16 @@ var path = require('path');
 var cookieParser = require('cookie-parser'); //接到 cookie
 var logger = require('morgan'); // 日誌
 const mongoose = require('mongoose');
-const dotenv = require("dotenv");
-dotenv.config({path:"./config.env"});
+const dotenv = require('dotenv');
+const swaggerUI = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
+
+dotenv.config({path: './config.env'});
 
 const DB =  process.env.DATABASE_CLOUD.replace('<password>',process.env.DATABASE_PASSWORD)
 
 mongoose.connect(DB).then(()=>{
-  console.log('資料庫連線成功')
+  console.log("資料庫連線成功")
 }).catch((error)=>{
   console.log(error)
 })
@@ -44,12 +47,12 @@ app.use(express.static(path.join(__dirname, 'public'))); // 預定靜態路由 �
 app.use('/upload', uploadRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
-
+app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 // 404
 app.use(function(req,res,next){
   res.status(404).json({
-      status:"false",
-      message:"您的路由不存在"
+      status: "false",
+      message: "您的路由不存在"
   })
 })
 
@@ -62,11 +65,11 @@ const resErrorProd = (err, res) => {
     });
   } else {
     // log 紀錄
-    console.error('出現重大錯誤', err);
+    console.error("出現重大錯誤", err);
     // 送出罐頭預設訊息
     res.status(500).json({
-      status: 'error',
-      message: '系統錯誤，請恰系統管理員'
+      status: "error",
+      message: "系統錯誤，請恰系統管理員"
     });
   }
 };
@@ -97,7 +100,7 @@ app.use(function(err, req, res, next) {
 
 // 未捕捉到的 catch 
 process.on('unhandledRejection', (err, promise) => {
-  console.error('未捕捉到的 rejection：', promise, '原因：', err);
+  console.error("未捕捉到的 rejection：", promise, "原因：", err);
 });
 
 module.exports = app;

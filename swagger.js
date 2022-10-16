@@ -6,7 +6,7 @@ const doc = {
     version: "1.0.0",
     description: '示範範例生成文件',
   },
-  host: process.env.PORT || 'localhost:3005', // 上傳記得改 看是打哪個API 例如 herpku
+  host: process.env.PORT || 'localhost:3005', // 上傳記得改 看是打哪個API 例如 heroku
   schemes: ['http', 'https'], // 支援哪幾種模式
   securityDefinitions: { // 帶驗證 要補
     apiKeyAuth: {

@@ -33,7 +33,7 @@ const userControl ={
       const body = req.body;
       // 內容不可為空(自訂除錯)
       if(!body.email||!body.password||!body.confirmPassword||!body.name){
-        return next(appError("400","欄位格式不正確",next));
+        return next(appError("400","內容不為空",next));
       }
       // 密碼正確
       if(body.password!== body.confirmPassword){

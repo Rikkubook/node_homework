@@ -40,7 +40,7 @@ const generateSendJWT = (user,statusCode,res)=>{
     process.env.JWT_SECRET, // 混淆碼
     {expiresIn: process.env.JWT_EXPIRES_DAY} //有效日
   );
-  console.log(token)
+
   user.password = undefined;
   res.status(statusCode).json({
     status: 'success',

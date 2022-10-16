@@ -20,7 +20,6 @@ const postControl ={
       if(!data.content ){
         return next(appError(400,"你沒有輸入內容",next))
       }
-      console.log(req.user.id)
       const newPost = await Post.create({
         userInfo: req.user.id,
         image: data.image,
