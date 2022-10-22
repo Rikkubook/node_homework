@@ -349,17 +349,115 @@
         ]
       }
     },
+    "/posts/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/posts/user/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/posts/{id}/comment": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/posts/{postID}/like": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "postID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/posts/{postID}/unlike": {
+      "delete": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "postID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/posts/deleteAll": {
+      "delete": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/posts/delete/{id}": {
+      "delete": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/users/": {
       "get": {
         "tags": [
           "Users"
         ],
-        "summary": "取的所有使用者",
+        "summary": "取得所有使用者",
         "description": "",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "取的所有使用者",
+            "description": "取得所有使用者",
             "schema": {
               "type": "object",
               "properties": {
@@ -474,6 +572,307 @@
         }
       }
     },
+    "/users/check": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "登入權限測試",
+        "description": "如為登入狀態，回傳使用者資訊",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "登入權限測試",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "629cbcb2c29b1d7b99b71e77"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Betty"
+                    },
+                    "followers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "type": "string",
+                            "example": "6353efdcd9521f0232786fc0"
+                          },
+                          "_id": {
+                            "type": "string",
+                            "example": "6353f056d9521f0232786fcd"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-10-22T13:29:58.256Z"
+                          }
+                        }
+                      }
+                    },
+                    "following": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "type": "string",
+                            "example": "62923f05e8cbfe0e09efb65f"
+                          },
+                          "_id": {
+                            "type": "string",
+                            "example": "6352c29d670d0f4955200deb"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-10-21T16:02:37.565Z"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "你尚未登入！",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你尚未登入！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/following": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "取得個人追蹤者",
+        "description": "如為登入狀態，取得個人追蹤者",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "取得個人追蹤者",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "629cbcb2c29b1d7b99b71e77"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Betty"
+                    },
+                    "followers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "type": "string",
+                            "example": "6353efdcd9521f0232786fc0"
+                          },
+                          "_id": {
+                            "type": "string",
+                            "example": "6353f056d9521f0232786fcd"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-10-22T13:29:58.256Z"
+                          }
+                        }
+                      }
+                    },
+                    "following": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "type": "string",
+                            "example": "62923f05e8cbfe0e09efb65f"
+                          },
+                          "_id": {
+                            "type": "string",
+                            "example": "6352c29d670d0f4955200deb"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-10-21T16:02:37.565Z"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "你尚未登入！",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你尚未登入！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/getLikeList": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "取得個人喜愛貼文",
+        "description": "如為登入狀態，取得個人喜愛貼文",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "取得個人喜愛貼文",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "6352c1d21f9676615625f54a"
+                      },
+                      "userInfo": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "629cbcb2c29b1d7b99b71e77"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Betty"
+                          }
+                        }
+                      },
+                      "posts": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "62b2df7339ae3b801040139c"
+                          },
+                          "createAt": {
+                            "type": "string",
+                            "example": "2022-06-22T09:22:59.610Z"
+                          },
+                          "id": {
+                            "type": "string",
+                            "example": "62b2df7339ae3b801040139c"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "你尚未登入！",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你尚未登入！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/users/sign_in": {
       "post": {
         "tags": [
@@ -517,7 +916,7 @@
                   "properties": {
                     "token": {
                       "type": "string",
-                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWNiY2IyYzI5YjFkN2I5OWI3MWU3NyIsImlhdCI6MTY2NTIzNDAxOCwiZXhwIjoxNjY3ODI2MDE4fQ.ehYL2LJknxBXvELtjbyB1-bDRNKH59k_4nveXAT0HJA"
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWNiY2IyYzI5YjFkN2I5OWI3MWU3NyIsImlhdCI6MTY2NjQ0NTk3NSwiZXhwIjoxNjY5MDM3OTc1fQ.tJ9jqRYE6QMYo5fPC90QTJxzsTdkB3i3pxr94-aH-R4"
                     },
                     "user": {
                       "type": "object",
@@ -528,15 +927,47 @@
                         },
                         "name": {
                           "type": "string",
-                          "example": "May"
+                          "example": "Betty"
                         },
                         "followers": {
                           "type": "array",
-                          "items": {}
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "user": {
+                                "type": "string",
+                                "example": "6353efdcd9521f0232786fc0"
+                              },
+                              "_id": {
+                                "type": "string",
+                                "example": "6353f056d9521f0232786fcd"
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "example": "2022-10-22T13:29:58.256Z"
+                              }
+                            }
+                          }
                         },
                         "following": {
                           "type": "array",
-                          "items": {}
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "user": {
+                                "type": "string",
+                                "example": "62923f05e8cbfe0e09efb65f"
+                              },
+                              "_id": {
+                                "type": "string",
+                                "example": "6352c29d670d0f4955200deb"
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "example": "2022-10-21T16:02:37.565Z"
+                              }
+                            }
+                          }
                         }
                       }
                     }
@@ -758,17 +1189,25 @@
         }
       }
     },
-    "/users/check": {
-      "get": {
+    "/users/{id}/follow": {
+      "post": {
         "tags": [
           "Users"
         ],
-        "summary": "登入權限測試",
-        "description": "如為登入狀態，回傳使用者資訊",
-        "parameters": [],
+        "summary": "新增追蹤",
+        "description": "如為登入狀態，新增追蹤",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "追隨ID"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "取得使用者資訊",
+            "description": "新增追蹤",
             "schema": {
               "type": "object",
               "properties": {
@@ -776,26 +1215,9 @@
                   "type": "string",
                   "example": "success"
                 },
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "example": "629cbcb2c29b1d7b99b71e77"
-                    },
-                    "name": {
-                      "type": "string",
-                      "example": "May"
-                    },
-                    "followers": {
-                      "type": "array",
-                      "items": {}
-                    },
-                    "following": {
-                      "type": "array",
-                      "items": {}
-                    }
-                  }
+                "message": {
+                  "type": "string",
+                  "example": "您已成功追蹤！"
                 }
               },
               "xml": {
@@ -803,18 +1225,37 @@
               }
             }
           },
-          "401": {
-            "description": "你尚未登入！",
+          "404": {
+            "description": "回傳錯誤訊息",
             "schema": {
               "type": "object",
               "properties": {
                 "status": {
-                  "type": "number",
-                  "example": 401
+                  "type": "string",
+                  "example": "false"
                 },
                 "message": {
                   "type": "string",
-                  "example": "你尚未登入！"
+                  "example": "您的路由不存在"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "系統錯誤，請恰系統管理員"
                 }
               },
               "xml": {
@@ -836,7 +1277,7 @@
           "Users"
         ],
         "summary": "變更密碼",
-        "description": "",
+        "description": "如為登入狀態，變更密碼",
         "parameters": [
           {
             "name": "body",
@@ -886,15 +1327,47 @@
                           },
                           "name": {
                             "type": "string",
-                            "example": "May"
+                            "example": "Betty"
                           },
                           "followers": {
                             "type": "array",
-                            "items": {}
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "user": {
+                                  "type": "string",
+                                  "example": "6353efdcd9521f0232786fc0"
+                                },
+                                "_id": {
+                                  "type": "string",
+                                  "example": "6353f056d9521f0232786fcd"
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "example": "2022-10-22T13:29:58.256Z"
+                                }
+                              }
+                            }
                           },
                           "following": {
                             "type": "array",
-                            "items": {}
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "user": {
+                                  "type": "string",
+                                  "example": "62923f05e8cbfe0e09efb65f"
+                                },
+                                "_id": {
+                                  "type": "string",
+                                  "example": "6352c29d670d0f4955200deb"
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "example": "2022-10-21T16:02:37.565Z"
+                                }
+                              }
+                            }
                           }
                         }
                       }
@@ -918,7 +1391,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "密碼不一致！"
+                  "example": "密碼不可小於 8 碼 / 密碼需英數混合 / 密碼不一致！"
                 }
               },
               "xml": {
@@ -959,7 +1432,7 @@
           "Users"
         ],
         "summary": "更新資料",
-        "description": "",
+        "description": "如為登入狀態，更新資料",
         "parameters": [
           {
             "name": "body",
@@ -992,32 +1465,56 @@
                   "example": "success"
                 },
                 "data": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "user": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "629cbcb2c29b1d7b99b71e77"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Betty"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "betty@gmail.com"
+                    },
+                    "followers": {
+                      "type": "array",
+                      "items": {
                         "type": "object",
                         "properties": {
+                          "user": {
+                            "type": "string",
+                            "example": "6353efdcd9521f0232786fc0"
+                          },
                           "_id": {
                             "type": "string",
-                            "example": "629cbcb2c29b1d7b99b71e77"
+                            "example": "6353f056d9521f0232786fcd"
                           },
-                          "name": {
+                          "createdAt": {
                             "type": "string",
-                            "example": "Betty"
-                          },
-                          "email": {
+                            "example": "2022-10-22T13:29:58.256Z"
+                          }
+                        }
+                      }
+                    },
+                    "following": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
                             "type": "string",
-                            "example": "betty@gmail.com"
+                            "example": "62923f05e8cbfe0e09efb65f"
                           },
-                          "followers": {
-                            "type": "array",
-                            "items": {}
+                          "_id": {
+                            "type": "string",
+                            "example": "6352c29d670d0f4955200deb"
                           },
-                          "following": {
-                            "type": "array",
-                            "items": {}
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-10-21T16:02:37.565Z"
                           }
                         }
                       }
@@ -1074,6 +1571,123 @@
             "apiKeyAuth": []
           }
         ]
+      }
+    },
+    "/users/{id}/unfollow": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "取消追蹤",
+        "description": "如為登入狀態，取消追蹤",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "追隨ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取消追蹤",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "您已成功取消追蹤！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "您的路由不存在"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "系統錯誤，請恰系統管理員"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/google": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Google第三方登入",
+        "description": "跳轉至Google第三方登入",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/users/google/callback": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Google第三方打回",
+        "description": "Google第三方打回,路由帶資料",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "帶回token",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "帶回name",
+            "type": "string"
+          }
+        ],
+        "responses": {}
       }
     }
   },

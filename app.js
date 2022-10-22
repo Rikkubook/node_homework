@@ -7,20 +7,6 @@ dotenv.config({path:"./config.env"});
 
 require('./connections/mongoose');
 require('./connections/passport')
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const swaggerUI = require('swagger-ui-express');
-const swaggerFile = require('./swagger-output.json');
-
-dotenv.config({path: './config.env'});
-
-const DB =  process.env.DATABASE_CLOUD.replace('<password>',process.env.DATABASE_PASSWORD)
-
-mongoose.connect(DB).then(()=>{
-  console.log("資料庫連線成功")
-}).catch((error)=>{
-  console.log(error)
-})
 
 const uploadRouter = require('./routes/upload');
 const postsRouter = require('./routes/posts'); //管理Router
