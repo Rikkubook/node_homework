@@ -182,7 +182,7 @@ router.post(
    * #swagger.summary = '使用者登入'
    * #swagger.parameters['body'] = {
       in: 'body',
-      description: 'formdata 資料格式',
+      description: 'frow JSON',
       schema: {
         email: "may@gmail.com",
         password: "qwe1112233"
@@ -246,7 +246,7 @@ router.post(
    * #swagger.summary = '使用者註冊'
    * #swagger.parameters['body'] = {
       in: 'body',
-      description: 'formdata 資料格式',
+      description: 'row JSON',
       schema: {
         name: "May",
         email: "may123@gmail.com",
@@ -302,17 +302,17 @@ router.post(
    * #swagger.summary = '新增追蹤'
    * #swagger.description = '如為登入狀態，新增追蹤'
    * #swagger.security = [{ apiKeyAuth: []}]
-   *  #swagger.parameters['id'] = {
-        in: 'path',
-        description: '追隨ID',
-      }
+   * #swagger.parameters['id'] = {
+      in: 'path',
+      description: '追隨ID',
+    }
    * #swagger.responses[200] = {
-        description: '新增追蹤',
-        schema: {
-          status: 'success',
-          message: '您已成功追蹤！'
-        }
+      description: '新增追蹤',
+      schema: {
+        status: 'success',
+        message: '您已成功追蹤！'
       }
+    }
    * #swagger.responses[404] = {
         description: '回傳錯誤訊息',
         schema: {
@@ -339,7 +339,7 @@ router.patch(
    * #swagger.security = [{ apiKeyAuth: []}]
    * #swagger.parameters['body'] = {
       in: 'body',
-      description: 'formdata 資料格式',
+      description: 'row JSON',
       schema: {
         newPassword: "qweasd122",
         confirmPassword: "qweasd122"
@@ -400,7 +400,7 @@ router.patch(
    * #swagger.security = [{ apiKeyAuth: []}]
    * #swagger.parameters['body'] = {
       in: 'body',
-      description: 'formdata 資料格式',
+      description: 'row JSON',
       schema: {
         name: "Betty",
         email: "betty@gmail.com"

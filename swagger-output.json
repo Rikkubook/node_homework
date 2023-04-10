@@ -25,10 +25,92 @@
   "paths": {
     "/upload/": {
       "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Upload"
+        ],
+        "summary": "新增img圖片",
+        "description": "如為登入狀態，新增img圖片",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "formdata File",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "example": "1.png"
+                }
+              }
+            },
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "新增img圖片",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "imgUrl": {
+                  "type": "string",
+                  "example": "https://i.imgur.com/65HLuQ1.jpg"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "圖片不合比例",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "圖片不符合 1:1"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你尚未登入！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/posts/": {
@@ -37,39 +119,8 @@
           "Posts"
         ],
         "summary": "取得所有貼文",
-        "description": "如為登入狀態，回傳所有貼文",
-        "parameters": [
-          {
-            "name": "search",
-            "in": "query",
-            "description": "search=",
-            "type": "string"
-          },
-          {
-            "name": "timeSort",
-            "in": "query",
-            "description": "timeSort=old (舊到新) or 不填寫 (新到舊)",
-            "type": "string"
-          },
-          {
-            "name": "likes",
-            "in": "query",
-            "description": "timeSort=hot 最多讚，不填寫則依據 timeSort，可與 timeSort 同時使用",
-            "type": "string"
-          },
-          {
-            "name": "skip",
-            "in": "query",
-            "description": "skip=Number",
-            "type": "string"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "limit=Number",
-            "type": "string"
-          }
-        ],
+        "description": "如為登入狀態，取得所有貼文",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "取得所有貼文資料",
@@ -77,8 +128,8 @@
               "type": "object",
               "properties": {
                 "status": {
-                  "type": "boolean",
-                  "example": true
+                  "type": "string",
+                  "example": "success"
                 },
                 "data": {
                   "type": "array",
@@ -87,73 +138,40 @@
                     "properties": {
                       "_id": {
                         "type": "string",
-                        "example": "628a0aea9acb6cb7d6b70d93"
+                        "example": "62b2df6f39ae3b8010401399"
                       },
-                      "userId": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "_id": {
-                              "type": "string",
-                              "example": "6286d9983208cb01aafaa562"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Meme"
-                            }
+                      "userInfo": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "62b2cea939ae3b8010401333"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": " "
                           }
                         }
                       },
                       "content": {
                         "type": "string",
-                        "example": "我只是個測試唷!"
+                        "example": "123"
                       },
                       "likes": {
                         "type": "array",
                         "items": {}
                       },
-                      "image": {
-                        "type": "array",
-                        "items": {}
-                      },
-                      "createdAt": {
+                      "createAt": {
                         "type": "string",
-                        "example": "2022-05-22T10:05:30.803Z"
+                        "example": "2022-06-22T09:22:55.245Z"
                       },
                       "comments": {
                         "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "_id": {
-                              "type": "string",
-                              "example": "628a0c029acb6cb7d6b70da2"
-                            },
-                            "content": {
-                              "type": "string",
-                              "example": "我只是個測試唷 - 回應3"
-                            },
-                            "postId": {
-                              "type": "string",
-                              "example": "628a0aea9acb6cb7d6b70d93"
-                            },
-                            "userId": {
-                              "type": "string",
-                              "example": "6286d9983208cb01aafaa562"
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "example": "2022-05-22T10:10:10.792Z"
-                            },
-                            "actions": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              }
-                            }
-                          }
-                        }
+                        "items": {}
+                      },
+                      "id": {
+                        "type": "string",
+                        "example": "62b2df6f39ae3b8010401399"
                       }
                     }
                   }
@@ -164,18 +182,18 @@
               }
             }
           },
-          "400": {
+          "401": {
             "description": "回傳錯誤訊息",
             "schema": {
               "type": "object",
               "properties": {
                 "status": {
-                  "type": "boolean",
-                  "example": false
+                  "type": "number",
+                  "example": 401
                 },
                 "message": {
                   "type": "string",
-                  "example": "錯誤訊息"
+                  "example": "你尚未登入！"
                 }
               },
               "xml": {
@@ -194,125 +212,65 @@
         "tags": [
           "Posts"
         ],
-        "summary": "取得所有貼文",
-        "description": "如為登入狀態，回傳所有貼文",
+        "summary": "新增貼文",
+        "description": "如為登入狀態，新增貼文",
         "parameters": [
           {
-            "name": "search",
-            "in": "query",
-            "description": "search=",
-            "type": "string"
-          },
-          {
-            "name": "timeSort",
-            "in": "query",
-            "description": "timeSort=old (舊到新) or 不填寫 (新到舊)",
-            "type": "string"
-          },
-          {
-            "name": "likes",
-            "in": "query",
-            "description": "timeSort=hot 最多讚，不填寫則依據 timeSort，可與 timeSort 同時使用",
-            "type": "string"
-          },
-          {
-            "name": "skip",
-            "in": "query",
-            "description": "skip=Number",
-            "type": "string"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "limit=Number",
+            "name": "body",
+            "in": "body",
+            "description": "row JSON",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "example": "Betty 測試"
+                }
+              }
+            },
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "取得所有貼文資料",
+            "description": "新增貼文",
             "schema": {
               "type": "object",
               "properties": {
                 "status": {
-                  "type": "boolean",
-                  "example": true
+                  "type": "string",
+                  "example": "success"
                 },
                 "data": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "_id": {
-                        "type": "string",
-                        "example": "628a0aea9acb6cb7d6b70d93"
-                      },
-                      "userId": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "_id": {
-                              "type": "string",
-                              "example": "6286d9983208cb01aafaa562"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Meme"
-                            }
-                          }
-                        }
-                      },
-                      "content": {
-                        "type": "string",
-                        "example": "我只是個測試唷!"
-                      },
-                      "likes": {
-                        "type": "array",
-                        "items": {}
-                      },
-                      "image": {
-                        "type": "array",
-                        "items": {}
-                      },
-                      "createdAt": {
-                        "type": "string",
-                        "example": "2022-05-22T10:05:30.803Z"
-                      },
-                      "comments": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "_id": {
-                              "type": "string",
-                              "example": "628a0c029acb6cb7d6b70da2"
-                            },
-                            "content": {
-                              "type": "string",
-                              "example": "我只是個測試唷 - 回應3"
-                            },
-                            "postId": {
-                              "type": "string",
-                              "example": "628a0aea9acb6cb7d6b70d93"
-                            },
-                            "userId": {
-                              "type": "string",
-                              "example": "6286d9983208cb01aafaa562"
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "example": "2022-05-22T10:10:10.792Z"
-                            },
-                            "actions": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              }
-                            }
-                          }
-                        }
-                      }
+                  "type": "object",
+                  "properties": {
+                    "userInfo": {
+                      "type": "string",
+                      "example": "629cbcb2c29b1d7b99b71e77"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "Betty 測試"
+                    },
+                    "likes": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "635cdf1742f0df8d2257f02d"
+                    },
+                    "createAt": {
+                      "type": "string",
+                      "example": "2022-10-29T08:06:47.641Z"
+                    },
+                    "comments": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "id": {
+                      "type": "string",
+                      "example": "635cdf1742f0df8d2257f02d"
                     }
                   }
                 }
@@ -328,12 +286,31 @@
               "type": "object",
               "properties": {
                 "status": {
-                  "type": "boolean",
-                  "example": false
+                  "type": "number",
+                  "example": 400
                 },
                 "message": {
                   "type": "string",
-                  "example": "錯誤訊息"
+                  "example": "你沒有輸入內容"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你尚未登入！"
                 }
               },
               "xml": {
@@ -351,100 +328,685 @@
     },
     "/posts/{id}": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Posts"
+        ],
+        "summary": "取得某則貼文列表",
+        "description": "取得某則貼文",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "文章ID"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "取得某則貼文列表",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "62b2df7339ae3b801040139c"
+                      },
+                      "userInfo": {
+                        "type": "string",
+                        "example": "62b2cea939ae3b8010401333"
+                      },
+                      "content": {
+                        "type": "string",
+                        "example": " "
+                      },
+                      "likes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "createAt": {
+                        "type": "string",
+                        "example": "2022-06-22T09:22:59.610Z"
+                      },
+                      "comments": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "62b2df9439ae3b80104013a6"
+                            },
+                            "comment": {
+                              "type": "string",
+                              "example": " "
+                            },
+                            "user": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "example": "62b2cea939ae3b8010401333"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "example": " "
+                                }
+                              }
+                            },
+                            "post": {
+                              "type": "string",
+                              "example": "62b2df7339ae3b801040139c"
+                            }
+                          }
+                        }
+                      },
+                      "id": {
+                        "type": "string",
+                        "example": "62b2df7339ae3b801040139c"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "您的路由不存在"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "系統錯誤，請恰系統管理員"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
       }
     },
     "/posts/user/{id}": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Posts"
+        ],
+        "summary": "取得某人的所有貼文列表",
+        "description": "取得某人的所有貼文列表",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "某人ID"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "取得某人的所有貼文列表",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "results": {
+                  "type": "number",
+                  "example": 2
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "62a495194d55575754cb5266"
+                      },
+                      "userInfo": {
+                        "type": "string",
+                        "example": "6291949cbea952d620161823"
+                      },
+                      "content": {
+                        "type": "string",
+                        "example": "測試用4"
+                      },
+                      "likes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "createAt": {
+                        "type": "string",
+                        "example": "2022-06-11T13:14:01.847Z"
+                      },
+                      "comments": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "62a4959ad30f2dd097cffb16"
+                            },
+                            "comment": {
+                              "type": "string",
+                              "example": "Hi 你好"
+                            },
+                            "user": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "example": "6291949cbea952d620161823"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "example": "Rikku12"
+                                }
+                              }
+                            },
+                            "post": {
+                              "type": "string",
+                              "example": "62a495194d55575754cb5266"
+                            }
+                          }
+                        }
+                      },
+                      "id": {
+                        "type": "string",
+                        "example": "62a495194d55575754cb5266"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "您的路由不存在"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "系統錯誤，請恰系統管理員"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
       }
     },
     "/posts/{id}/comment": {
       "post": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Posts"
+        ],
+        "summary": "新增留言",
+        "description": "如為登入狀態，新增留言",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string",
+            "description": "文章ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "row JSON",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "example": "Betty 測試"
+                }
+              }
+            },
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "新增留言",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "comments": {
+                      "type": "object",
+                      "properties": {
+                        "comment": {
+                          "type": "string",
+                          "example": "hahaha"
+                        },
+                        "user": {
+                          "type": "string",
+                          "example": "629cbcb2c29b1d7b99b71e77"
+                        },
+                        "post": {
+                          "type": "string",
+                          "example": "62b2df7339ae3b801040139c"
+                        },
+                        "_id": {
+                          "type": "string",
+                          "example": "635ce17757737e6513256376"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2022-10-29T08:16:55.594Z"
+                        },
+                        "__v": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你沒有輸入內容"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你尚未登入！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/posts/{postID}/like": {
       "post": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Posts"
+        ],
+        "summary": "新增喜歡",
+        "description": "如為登入狀態，新增喜歡",
         "parameters": [
           {
             "name": "postID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "文章ID"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "新增喜歡",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "新增收藏"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你尚未登入！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/posts/{postID}/unlike": {
       "delete": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Posts"
+        ],
+        "summary": "刪除喜歡",
+        "description": "如為登入狀態，刪除喜歡",
         "parameters": [
           {
             "name": "postID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "文章ID"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "刪除喜歡",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "取消收藏"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你尚未登入！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/posts/deleteAll": {
       "delete": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Posts"
+        ],
+        "summary": "刪除全部貼文",
+        "description": "如為登入狀態，刪除全部貼文",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "刪除全部貼文",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你尚未登入！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/posts/delete/{id}": {
       "delete": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Posts"
+        ],
+        "summary": "刪除單筆",
+        "description": "如為登入狀態，刪除單筆",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "文章ID"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "刪除單筆,回剩下的文章",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "62a4937d4d50c41c8ba0c021"
+                      },
+                      "userInfo": {
+                        "type": "string",
+                        "example": "6291949cbea952d620161823"
+                      },
+                      "content": {
+                        "type": "string",
+                        "example": "測試用1"
+                      },
+                      "likes": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "createAt": {
+                        "type": "string",
+                        "example": "2022-06-11T13:07:09.518Z"
+                      },
+                      "id": {
+                        "type": "string",
+                        "example": "62a4937d4d50c41c8ba0c021"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "回傳錯誤訊息",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "你尚未登入！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/users/": {
@@ -884,7 +1446,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "formdata 資料格式",
+            "description": "frow JSON",
             "schema": {
               "type": "object",
               "properties": {
@@ -1050,7 +1612,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "formdata 資料格式",
+            "description": "row JSON",
             "schema": {
               "type": "object",
               "properties": {
@@ -1282,7 +1844,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "formdata 資料格式",
+            "description": "row JSON",
             "schema": {
               "type": "object",
               "properties": {
@@ -1437,7 +1999,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "formdata 資料格式",
+            "description": "row JSON",
             "schema": {
               "type": "object",
               "properties": {
